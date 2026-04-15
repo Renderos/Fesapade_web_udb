@@ -1,0 +1,55 @@
+import Link from 'next/link';
+import { ChevronDown } from 'lucide-react';
+
+export default function Hero() {
+  return (
+    <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
+      {/* Background image with overlay */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/images/hero-bg.jpg')" }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#1a2b4a]/70 via-[#1a2b4a]/50 to-[#1a2b4a]/80" />
+
+      {/* Content */}
+      <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
+        <p className="text-[#c8a84b] font-semibold uppercase tracking-widest text-sm mb-4">
+          Federación Salvadoreña de Paracaidismo y Aerodeportes
+        </p>
+        <h1 className="text-5xl md:text-7xl font-extrabold leading-tight mb-6">
+          Vuela sin
+          <br />
+          <span className="text-[#c8a84b]">límites</span>
+        </h1>
+        <p className="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto leading-relaxed">
+          Descubre la emoción del paracaidismo en El Salvador. Cursos
+          certificados, fun jumps y una comunidad apasionada te esperan.
+        </p>
+
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Link
+            href="/cursos"
+            className="inline-flex items-center justify-center px-8 py-4 rounded-full bg-[#c8a84b] text-white font-bold text-base hover:bg-[#b8953d] transition-all hover:scale-105 shadow-lg"
+          >
+            Ver cursos y precios
+          </Link>
+          <Link
+            href="/quienes-somos"
+            className="inline-flex items-center justify-center px-8 py-4 rounded-full border-2 border-white text-white font-bold text-base hover:bg-white/10 transition-all"
+          >
+            Conócenos
+          </Link>
+        </div>
+      </div>
+
+      {/* Scroll indicator */}
+      <a
+        href="#highlights"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/60 hover:text-white animate-bounce transition-colors"
+        aria-label="Scroll hacia abajo"
+      >
+        <ChevronDown size={32} />
+      </a>
+    </section>
+  );
+}
