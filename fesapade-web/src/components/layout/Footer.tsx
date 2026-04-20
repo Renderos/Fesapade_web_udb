@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { fetchStrapiSafe } from '@/lib/strapi';
+import type { StrapiResponse, SiteConfig } from '@/types/strapi';
 import { FacebookIcon, InstagramIcon, YoutubeIcon } from '@/components/ui/SocialIcons';
 
 const navLinks = [
@@ -10,7 +12,17 @@ const navLinks = [
   { href: '/contacto', label: 'Contáctanos' },
 ];
 
-export default function Footer() {
+export default async function Footer() {
+  const data = await fetchStrapiSafe<StrapiResponse<SiteConfig>>('site-config');
+  const config = data?.data;
+
+  const email = config?.email ?? 'info@fesapade.org.sv';
+  const telefono = config?.telefono ?? '+503 0000-0000';
+  const direccion = config?.direccion ?? 'El Salvador';
+  const facebook = config?.facebook ?? '#';
+  const instagram = config?.instagram ?? '#';
+  const youtube = config?.youtube ?? '#';
+
   return (
     <footer className="bg-[#1a2b4a] text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
@@ -58,27 +70,33 @@ export default function Footer() {
               Contáctanos
             </h4>
             <ul className="space-y-2 text-gray-300 text-sm mb-6">
-              <li>📧 info@fesapade.org.sv</li>
-              <li>📞 +503 0000-0000</li>
-              <li>📍 El Salvador</li>
+              <li>📧 {email}</li>
+              <li>📞 {telefono}</li>
+              <li>📍 {direccion}</li>
             </ul>
             <div className="flex gap-4">
               <a
-                href="#"
+                href={facebook}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="Facebook"
                 className="text-gray-400 hover:text-[#c8a84b] transition-colors"
               >
                 <FacebookIcon size={20} />
               </a>
               <a
-                href="#"
+                href={instagram}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="Instagram"
                 className="text-gray-400 hover:text-[#c8a84b] transition-colors"
               >
                 <InstagramIcon size={20} />
               </a>
               <a
-                href="#"
+                href={youtube}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="YouTube"
                 className="text-gray-400 hover:text-[#c8a84b] transition-colors"
               >

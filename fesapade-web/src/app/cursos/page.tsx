@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
+import { fetchStrapiSafe, getStrapiImageUrl } from '@/lib/strapi';
+import type { StrapiResponse, Course } from '@/types/strapi';
 
 export const metadata: Metadata = {
   title: 'Cursos & Fun Jumps | FESAPADE',
@@ -7,59 +10,124 @@ export const metadata: Metadata = {
     'Conoce nuestros cursos de paracaidismo y fun jumps en El Salvador. Todos los niveles.',
 };
 
-const courses = [
+// --- static fallback ---
+const staticCourses = [
   {
-    title: 'Salto Tándem',
-    tag: 'Sin experiencia previa',
-    tagColor: 'bg-sky-100 text-sky-700',
-    description:
+    titulo: 'Salto Tándem',
+    nivel: 'principiante' as const,
+    descripcion:
       'Vive la emoción de la caída libre acompañado de un instructor certificado. Vuelas atado al instructor durante todo el salto desde aproximadamente 4,000 metros de altura.',
-    includes: ['Instrucción pre-salto', 'Equipo completo', 'Certificado', 'Fotos y video (opcional)'],
-    price: '$XXX',
-    duration: '~3 horas (incluyendo preparación)',
+    incluye: ['Instrucción pre-salto', 'Equipo completo', 'Certificado', 'Fotos y video (opcional)'],
+    precioDisplay: '$XXX',
+    duracion: '~3 horas (incluyendo preparación)',
     cta: 'Reservar tándem',
+    slug: 'salto-tandem',
+    imagen: null,
   },
   {
-    title: 'Curso AFF (Accelerated Freefall)',
-    tag: 'Formación completa',
-    tagColor: 'bg-amber-100 text-amber-700',
-    description:
-      'El programa oficial para obtener tu licencia de paracaidismo. 8 niveles de formación con instructores certificados por la USPA. Al finalizarlo serás un paracaidista independiente.',
-    includes: [
-      'Material didáctico',
-      'Curso teórico',
-      '8 niveles de saltos',
-      'Evaluación y certificación',
-    ],
-    price: '$X,XXX',
-    duration: 'Variable (días/semanas)',
+    titulo: 'Curso AFF (Accelerated Freefall)',
+    nivel: 'intermedio' as const,
+    descripcion:
+      'El programa oficial para obtener tu licencia de paracaidismo. 8 niveles de formación con instructores certificados por la USPA.',
+    incluye: ['Material didáctico', 'Curso teórico', '8 niveles de saltos', 'Evaluación y certificación'],
+    precioDisplay: '$X,XXX',
+    duracion: 'Variable (días/semanas)',
     cta: 'Consultar AFF',
+    slug: 'curso-aff',
+    imagen: null,
   },
   {
-    title: 'Fun Jump',
-    tag: 'Requiere licencia',
-    tagColor: 'bg-emerald-100 text-emerald-700',
-    description:
-      'Si ya tienes licencia de paracaidismo (A, B, C o D), únete a nuestras jornadas de saltos grupales. El cielo de El Salvador te espera.',
-    includes: ['Acceso a zonas de salto', 'Logística aérea', 'Briefing previo'],
-    price: '$XX',
-    duration: 'Jornada completa',
+    titulo: 'Fun Jump',
+    nivel: 'avanzado' as const,
+    descripcion:
+      'Si ya tienes licencia de paracaidismo (A, B, C o D), únete a nuestras jornadas de saltos grupales.',
+    incluye: ['Acceso a zonas de salto', 'Logística aérea', 'Briefing previo'],
+    precioDisplay: '$XX',
+    duracion: 'Jornada completa',
     cta: 'Ver fechas',
+    slug: 'fun-jump',
+    imagen: null,
   },
   {
-    title: 'Canopy Piloting (CP)',
-    tag: 'Avanzado',
-    tagColor: 'bg-purple-100 text-purple-700',
-    description:
-      'Formación en control de paracaídas en etapas avanzadas. Para paracaidistas con experiencia que quieren perfeccionar su apertura y aterrizaje.',
-    includes: ['Entrenamiento en tierra', 'Supervisión especializada', 'Evaluación técnica'],
-    price: 'Consultar',
-    duration: 'A definir con instructor',
+    titulo: 'Canopy Piloting (CP)',
+    nivel: 'avanzado' as const,
+    descripcion:
+      'Formación en control de paracaídas en etapas avanzadas. Para paracaidistas con experiencia.',
+    incluye: ['Entrenamiento en tierra', 'Supervisión especializada', 'Evaluación técnica'],
+    precioDisplay: 'Consultar',
+    duracion: 'A definir con instructor',
     cta: 'Consultar CP',
+    slug: 'canopy-piloting',
+    imagen: null,
   },
 ];
 
-export default function CursosPage() {
+const nivelStyle: Record<string, { tag: string; tagColor: string }> = {
+  principiante: { tag: 'Sin experiencia previa', tagColor: 'bg-sky-100 text-sky-700' },
+  intermedio:   { tag: 'Formación completa',     tagColor: 'bg-amber-100 text-amber-700' },
+  avanzado:     { tag: 'Avanzado',               tagColor: 'bg-purple-100 text-purple-700' },
+};
+
+function formatPrecio(precio: number, moneda: string): string {
+  if (!precio) return 'Consultar';
+  return moneda ? `$${precio} ${moneda}` : `$${precio}`;
+}
+
+type DisplayCourse = {
+  titulo: string;
+  tag: string;
+  tagColor: string;
+  descripcion: string;
+  precioDisplay: string;
+  duracion: string;
+  cta: string;
+  slug: string;
+  imagenUrl: string | null;
+  imagenAlt: string;
+};
+
+function fromStrapi(c: Course): DisplayCourse {
+  const style = nivelStyle[c.nivel] ?? { tag: c.nivel, tagColor: 'bg-gray-100 text-gray-600' };
+  return {
+    titulo: c.titulo,
+    tag: style.tag,
+    tagColor: style.tagColor,
+    descripcion: c.descripcion,
+    precioDisplay: formatPrecio(c.precio, c.moneda),
+    duracion: c.duracion,
+    cta: 'Consultar',
+    slug: c.slug,
+    imagenUrl: c.imagen ? getStrapiImageUrl(c.imagen.url) : null,
+    imagenAlt: c.imagen?.alternativeText ?? c.titulo,
+  };
+}
+
+function fromStatic(c: (typeof staticCourses)[number]): DisplayCourse {
+  const style = nivelStyle[c.nivel] ?? { tag: c.nivel, tagColor: 'bg-gray-100 text-gray-600' };
+  return {
+    titulo: c.titulo,
+    tag: style.tag,
+    tagColor: style.tagColor,
+    descripcion: c.descripcion,
+    precioDisplay: c.precioDisplay,
+    duracion: c.duracion,
+    cta: c.cta,
+    slug: c.slug,
+    imagenUrl: null,
+    imagenAlt: c.titulo,
+  };
+}
+
+export default async function CursosPage() {
+  const data = await fetchStrapiSafe<StrapiResponse<Course[]>>(
+    'courses?populate=imagen&sort=destacado:desc'
+  );
+
+  const courses: DisplayCourse[] =
+    data?.data?.length
+      ? data.data.map(fromStrapi)
+      : staticCourses.map(fromStatic);
+
   return (
     <div className="pt-20">
       {/* Header */}
@@ -82,44 +150,45 @@ export default function CursosPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {courses.map((course) => (
               <div
-                key={course.title}
-                className="rounded-2xl border border-gray-100 p-8 hover:shadow-lg hover:border-[#c8a84b] transition-all"
+                key={course.slug}
+                className="rounded-2xl border border-gray-100 overflow-hidden hover:shadow-lg hover:border-[#c8a84b] transition-all"
               >
-                <span
-                  className={`inline-block text-xs font-semibold px-3 py-1 rounded-full mb-4 ${course.tagColor}`}
-                >
-                  {course.tag}
-                </span>
-
-                <h2 className="text-2xl font-bold text-[#1a2b4a] mb-3">
-                  {course.title}
-                </h2>
-                <p className="text-gray-500 mb-6 leading-relaxed">
-                  {course.description}
-                </p>
-
-                <ul className="space-y-2 mb-6">
-                  {course.includes.map((item) => (
-                    <li key={item} className="flex items-center gap-2 text-sm text-gray-600">
-                      <span className="text-[#c8a84b]">✓</span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="flex items-end justify-between">
-                  <div>
-                    <div className="text-xs text-gray-400 mb-1">{course.duration}</div>
-                    <div className="text-3xl font-extrabold text-[#1a2b4a]">
-                      {course.price}
-                    </div>
+                {course.imagenUrl ? (
+                  <div className="relative h-48 w-full">
+                    <Image
+                      src={course.imagenUrl}
+                      alt={course.imagenAlt}
+                      fill
+                      className="object-cover"
+                    />
                   </div>
-                  <Link
-                    href="/contacto"
-                    className="px-5 py-2.5 rounded-full bg-[#1a2b4a] text-white text-sm font-semibold hover:bg-[#c8a84b] transition-colors"
-                  >
-                    {course.cta}
-                  </Link>
+                ) : (
+                  <div className="h-48 bg-gradient-to-br from-[#1a2b4a] to-[#2d4a7a] flex items-center justify-center text-white text-6xl">
+                    🪂
+                  </div>
+                )}
+
+                <div className="p-8">
+                  <span className={`inline-block text-xs font-semibold px-3 py-1 rounded-full mb-4 ${course.tagColor}`}>
+                    {course.tag}
+                  </span>
+                  <h2 className="text-2xl font-bold text-[#1a2b4a] mb-3">{course.titulo}</h2>
+                  <p className="text-gray-500 mb-6 leading-relaxed">{course.descripcion}</p>
+
+                  <div className="flex items-end justify-between">
+                    <div>
+                      <div className="text-xs text-gray-400 mb-1">{course.duracion}</div>
+                      <div className="text-3xl font-extrabold text-[#1a2b4a]">
+                        {course.precioDisplay}
+                      </div>
+                    </div>
+                    <Link
+                      href="/contacto"
+                      className="px-5 py-2.5 rounded-full bg-[#1a2b4a] text-white text-sm font-semibold hover:bg-[#c8a84b] transition-colors"
+                    >
+                      {course.cta}
+                    </Link>
+                  </div>
                 </div>
               </div>
             ))}

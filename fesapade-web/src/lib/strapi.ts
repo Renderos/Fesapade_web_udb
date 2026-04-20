@@ -19,6 +19,17 @@ export async function fetchStrapi<T>(
   return res.json();
 }
 
+export async function fetchStrapiSafe<T>(
+  endpoint: string,
+  options?: RequestInit
+): Promise<T | null> {
+  try {
+    return await fetchStrapi<T>(endpoint, options);
+  } catch {
+    return null;
+  }
+}
+
 export function getStrapiImageUrl(url: string): string {
   if (!url) return '/images/placeholder.jpg';
   if (url.startsWith('http')) return url;

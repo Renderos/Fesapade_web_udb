@@ -56,7 +56,7 @@ export default function Navbar() {
               <Link
                 href={link.href}
                 className={`text-sm font-medium transition-colors hover:text-[#c8a84b] ${
-                  scrolled ? 'text-[#1a2b4a]' : 'text-[#1a2b4a]]'
+                  scrolled ? 'text-[#1a2b4a]' : 'text-white'
                 }`}
               >
                 {link.label}

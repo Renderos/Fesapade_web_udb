@@ -1,33 +1,38 @@
+import { fetchStrapiSafe } from '@/lib/strapi';
+import type { StrapiResponse, SiteConfig } from '@/types/strapi';
 import { FacebookIcon, InstagramIcon, YoutubeIcon, TiktokIcon } from '@/components/ui/SocialIcons';
 
-const socials = [
-  {
-    name: 'Facebook',
-    handle: '@FESAPADE',
-    Icon: FacebookIcon,
-    href: '#',
-  },
-  {
-    name: 'Instagram',
-    handle: '@fesapade',
-    Icon: InstagramIcon,
-    href: '#',
-  },
-  {
-    name: 'YouTube',
-    handle: 'FESAPADE',
-    Icon: YoutubeIcon,
-    href: '#',
-  },
-  {
-    name: 'TikTok',
-    handle: '@fesapade',
-    Icon: TiktokIcon,
-    href: '#',
-  },
-];
+export default async function SocialCTA() {
+  const data = await fetchStrapiSafe<StrapiResponse<SiteConfig>>('site-config');
+  const config = data?.data;
 
-export default function SocialCTA() {
+  const socials = [
+    {
+      name: 'Facebook',
+      handle: '@FESAPADE',
+      Icon: FacebookIcon,
+      href: config?.facebook ?? '#',
+    },
+    {
+      name: 'Instagram',
+      handle: '@fesapade',
+      Icon: InstagramIcon,
+      href: config?.instagram ?? '#',
+    },
+    {
+      name: 'YouTube',
+      handle: 'FESAPADE',
+      Icon: YoutubeIcon,
+      href: config?.youtube ?? '#',
+    },
+    {
+      name: 'TikTok',
+      handle: '@fesapade',
+      Icon: TiktokIcon,
+      href: config?.tiktok ?? '#',
+    },
+  ];
+
   return (
     <section className="py-20 bg-[#1a2b4a] text-white text-center">
       <div className="max-w-4xl mx-auto px-4">
