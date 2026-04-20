@@ -1,0 +1,53 @@
+{
+  "kind": "collectionType",
+  "collectionName": "courses",
+  "info": {
+    "singularName": "course",
+    "pluralName": "courses",
+    "displayName": "Course",
+    "description": "Cursos y fun jumps ofrecidos por FESAPADE"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "titulo": {
+      "type": "string",
+      "required": true
+    },
+    "descripcion": {
+      "type": "text",
+      "required": true
+    },
+    "precio": {
+      "type": "decimal",
+      "default": 0
+    },
+    "moneda": {
+      "type": "string",
+      "default": "USD"
+    },
+    "duracion": {
+      "type": "string"
+    },
+    "nivel": {
+      "type": "enumeration",
+      "enum": ["principiante", "intermedio", "avanzado"],
+      "required": true
+    },
+    "imagen": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "destacado": {
+      "type": "boolean",
+      "default": false
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "titulo",
+      "required": true
+    }
+  }
+}

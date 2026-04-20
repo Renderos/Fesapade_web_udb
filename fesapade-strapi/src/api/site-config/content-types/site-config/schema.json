@@ -1,0 +1,39 @@
+{
+  "kind": "singleType",
+  "collectionName": "site_configs",
+  "info": {
+    "singularName": "site-config",
+    "pluralName": "site-configs",
+    "displayName": "Site Config",
+    "description": "Configuración global del sitio: contacto y redes sociales"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "telefono": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "facebook": {
+      "type": "string"
+    },
+    "instagram": {
+      "type": "string"
+    },
+    "youtube": {
+      "type": "string"
+    },
+    "tiktok": {
+      "type": "string"
+    },
+    "whatsapp": {
+      "type": "string"
+    },
+    "direccion": {
+      "type": "string"
+    }
+  }
+}
