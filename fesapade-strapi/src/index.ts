@@ -158,7 +158,7 @@ async function seedTeam(strapi: Core.Strapi) {
   const members = [
     { nombre: 'Carlos Mendoza', cargo: 'Presidente' },
     { nombre: 'Ana López', cargo: 'Directora Técnica' },
-    { nombre: 'Roberto García', cargo: 'Instructor Jefe' },
+    { nombre: 'Ronald Renderos', cargo: 'Instructor Jefe' },
     { nombre: 'María Hernández', cargo: 'Secretaria General' },
   ];
 
