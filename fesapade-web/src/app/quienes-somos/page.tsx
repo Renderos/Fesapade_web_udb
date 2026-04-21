@@ -47,6 +47,82 @@ export default async function QuienesSomosPage() {
         <h1 className="text-4xl md:text-5xl font-extrabold">Quiénes somos</h1>
       </div>
 
+      {/* About */}
+      <section className="py-20 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-gray-600 leading-relaxed text-lg">
+            La Federación Salvadoreña de Paracaidismo y Aerodeportes -FESAPADE- es el organismo
+            rector y máxima autoridad de todas las actividades del Paracaidismo y todas las demás
+            actividades Aerodeportivas en todas sus modalidades y categorías, en todo el país.
+          </p>
+        </div>
+      </section>
+
+      {/* Affiliations */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-[#1a2b4a] text-center mb-12">
+            Afiliaciones y reconocimientos
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* INDES */}
+            <div className="bg-white rounded-2xl p-8 flex flex-col items-center gap-4 shadow-sm border border-gray-100 hover:border-[#c8a84b] transition-colors">
+              <div className="relative w-24 h-24">
+                <Image src="/images/INDES_Logo1.jpg" alt="INDES" fill className="object-contain" />
+              </div>
+              <div className="text-center">
+                <h3 className="font-bold text-[#1a2b4a] text-lg mb-1">INDES</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">
+                  Reconocida e inscrita en el Instituto Nacional de los Deportes de El Salvador y
+                  miembro del Comité Olímpico de El Salvador (COE).
+                </p>
+              </div>
+            </div>
+
+            {/* COLPAR */}
+            <div className="bg-white rounded-2xl p-8 flex flex-col items-center gap-4 shadow-sm border border-gray-100 hover:border-[#c8a84b] transition-colors">
+              <div className="relative w-24 h-24">
+                <Image src="/images/COLPAR_logo.jpg" alt="COLPAR" fill className="object-contain" />
+              </div>
+              <div className="text-center">
+                <h3 className="font-bold text-[#1a2b4a] text-lg mb-1">COLPAR</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">
+                  Afiliada a la Confederación Latinoamericana de Paracaidismo.
+                </p>
+              </div>
+            </div>
+
+            {/* USPA */}
+            <div className="bg-white rounded-2xl p-8 flex flex-col items-center gap-4 shadow-sm border border-gray-100 hover:border-[#c8a84b] transition-colors">
+              <div className="relative w-24 h-24">
+                <Image src="/images/USPA_logo.jpg" alt="USPA" fill className="object-contain" />
+              </div>
+              <div className="text-center">
+                <h3 className="font-bold text-[#1a2b4a] text-lg mb-1">USPA</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">
+                  Afiliada a la United States Parachute Association y reconocida por la Federación
+                  Aeronáutica Internacional (FAI).
+                </p>
+              </div>
+            </div>
+
+            {/* FAI */}
+            <div className="bg-white rounded-2xl p-8 flex flex-col items-center gap-4 shadow-sm border border-gray-100 hover:border-[#c8a84b] transition-colors">
+              <div className="relative w-24 h-24">
+                <Image src="/images/fai-logo-600.jpg" alt="FAI" fill className="object-contain" />
+              </div>
+              <div className="text-center">
+                <h3 className="font-bold text-[#1a2b4a] text-lg mb-1">FAI / IPC</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">
+                  Todos los campeonatos internacionales de paracaidismo FAI se realizan bajo la
+                  dirección de la Comisión Internacional de Paracaidismo (IPC).
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Mission & Vision */}
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -54,16 +130,19 @@ export default async function QuienesSomosPage() {
             <div>
               <h2 className="text-3xl font-bold text-[#1a2b4a] mb-6">Nuestra misión</h2>
               <p className="text-gray-600 leading-relaxed text-lg">
-                Promover, regular y desarrollar el paracaidismo y los aerodeportes en El Salvador,
-                garantizando los más altos estándares de seguridad y formación para todos nuestros
-                deportistas.
+                Promover, organizar y desarrollar el paracaidismo deportivo y de exhibición en todas
+                sus modalidades a fin de formar atletas de alto rendimiento, contribuyendo de esta
+                manera al desarrollo de cualidades físicas y morales, y promoviendo altos principios
+                cívicos en todos los Paracaidistas que la integran, y fomentando que se ponga en todo
+                momento, el nombre de nuestro país en alto.
               </p>
             </div>
             <div>
               <h2 className="text-3xl font-bold text-[#1a2b4a] mb-6">Nuestra visión</h2>
               <p className="text-gray-600 leading-relaxed text-lg">
-                Ser la federación de referencia en aerodeportes de Centroamérica, reconocida por la
-                excelencia en la formación de deportistas y la seguridad en cada salto.
+                Ser una federación integral en el desarrollo, fomento y práctica del paracaidismo
+                deportivo y de exhibición; ser líderes a nivel Regional, manteniendo un alto espíritu
+                de competencia y sólidas convicciones por enaltecer nuestros símbolos patrios.
               </p>
             </div>
           </div>
@@ -74,21 +153,24 @@ export default async function QuienesSomosPage() {
       <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-[#1a2b4a] text-center mb-12">Nuestros valores</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {(
               [
-                { label: 'Seguridad', icon: '🛡️' },
-                { label: 'Pasión', icon: '❤️' },
-                { label: 'Excelencia', icon: '⭐' },
-                { label: 'Comunidad', icon: '🤝' },
+                { label: 'Seguridad', desc: 'Pilar fundamental en la práctica de nuestro deporte.' },
+                { label: 'Igualdad', desc: 'La Federación no discrimina a nadie (raza, sexo, política o religión).' },
+                { label: 'Disciplina', desc: 'Primordial para lograr nuestros objetivos.' },
+                { label: 'Patriotismo', desc: 'Sentimiento de unión y respeto a nuestra querida patria.' },
+                { label: 'Lealtad', desc: 'Compromiso de fidelidad hacia los que componen la Federación.' },
+                { label: 'Compañerismo', desc: 'Colaboración y ayuda a nuestros compañeros.' },
+                { label: 'Responsabilidad', desc: 'Reflexionar, orientar y valorar las consecuencias de nuestros actos.' },
               ] as const
             ).map((v) => (
               <div
                 key={v.label}
-                className="bg-white rounded-2xl p-6 text-center shadow-sm border border-gray-100 hover:border-[#c8a84b] transition-colors"
+                className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:border-[#c8a84b] transition-colors"
               >
-                <div className="text-3xl mb-3">{v.icon}</div>
-                <div className="font-bold text-[#1a2b4a]">{v.label}</div>
+                <div className="font-bold text-[#1a2b4a] mb-2">{v.label}</div>
+                <p className="text-gray-500 text-sm leading-relaxed">{v.desc}</p>
               </div>
             ))}
           </div>
@@ -98,7 +180,7 @@ export default async function QuienesSomosPage() {
       {/* Team */}
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-[#1a2b4a] mb-12">Nuestro equipo</h2>
+          <h2 className="text-3xl font-bold text-[#1a2b4a] mb-12">Junta Directiva 2025 - 2029</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {team.map((member) => {
               const fotoUrl = member.foto ? getStrapiImageUrl(member.foto.url) : null;
