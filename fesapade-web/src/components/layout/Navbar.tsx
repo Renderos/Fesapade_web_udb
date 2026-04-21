@@ -42,7 +42,7 @@ export default function Navbar() {
           />
           <span
             className={`font-bold text-lg tracking-wide hidden sm:block transition-colors ${
-              scrolled ? 'text-[#1a2b4a]' : 'text-gray-800'
+              scrolled ? 'text-[#1a2b4a]' : 'text-white'
             }`}
           >
             FESAPADE
