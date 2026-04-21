@@ -24,42 +24,42 @@ const staticCourses = [
     slug: 'salto-tandem',
     imagen: null,
   },
-  // {
-  //   titulo: 'Curso AFF (Accelerated Freefall)',
-  //   nivel: 'intermedio' as const,
-  //   descripcion:
-  //     'El programa oficial para obtener tu licencia de paracaidismo. 8 niveles de formación con instructores certificados por la USPA.',
-  //   incluye: ['Material didáctico', 'Curso teórico', '8 niveles de saltos', 'Evaluación y certificación'],
-  //   precioDisplay: '$X,XXX',
-  //   duracion: 'Variable (días/semanas)',
-  //   cta: 'Consultar AFF',
-  //   slug: 'curso-aff',
-  //   imagen: null,
-  // },
-  // {
-  //   titulo: 'Fun Jump',
-  //   nivel: 'avanzado' as const,
-  //   descripcion:
-  //     'Si ya tienes licencia de paracaidismo (A, B, C o D), únete a nuestras jornadas de saltos grupales.',
-  //   incluye: ['Acceso a zonas de salto', 'Logística aérea', 'Briefing previo'],
-  //   precioDisplay: '$XX',
-  //   duracion: 'Jornada completa',
-  //   cta: 'Ver fechas',
-  //   slug: 'fun-jump',
-  //   imagen: null,
-  // },
-  // {
-  //   titulo: 'Canopy Piloting (CP)',
-  //   nivel: 'avanzado' as const,
-  //   descripcion:
-  //     'Formación en control de paracaídas en etapas avanzadas. Para paracaidistas con experiencia.',
-  //   incluye: ['Entrenamiento en tierra', 'Supervisión especializada', 'Evaluación técnica'],
-  //   precioDisplay: 'Consultar',
-  //   duracion: 'A definir con instructor',
-  //   cta: 'Consultar CP',
-  //   slug: 'canopy-piloting',
-  //   imagen: null,
-  // },
+  {
+    titulo: 'Curso AFF (Accelerated Freefall)',
+    nivel: 'intermedio' as const,
+    descripcion:
+      'El programa oficial para obtener tu licencia de paracaidismo. 8 niveles de formación con instructores certificados por la USPA.',
+    incluye: ['Material didáctico', 'Curso teórico', '8 niveles de saltos', 'Evaluación y certificación'],
+    precioDisplay: '$X,XXX',
+    duracion: 'Variable (días/semanas)',
+    cta: 'Consultar AFF',
+    slug: 'curso-aff',
+    imagen: null,
+  },
+  {
+    titulo: 'Fun Jump',
+    nivel: 'avanzado' as const,
+    descripcion:
+      'Si ya tienes licencia de paracaidismo (A, B, C o D), únete a nuestras jornadas de saltos grupales.',
+    incluye: ['Acceso a zonas de salto', 'Logística aérea', 'Briefing previo'],
+    precioDisplay: '$XX',
+    duracion: 'Jornada completa',
+    cta: 'Ver fechas',
+    slug: 'fun-jump',
+    imagen: null,
+  },
+  {
+    titulo: 'Canopy Piloting (CP)',
+    nivel: 'avanzado' as const,
+    descripcion:
+      'Formación en control de paracaídas en etapas avanzadas. Para paracaidistas con experiencia.',
+    incluye: ['Entrenamiento en tierra', 'Supervisión especializada', 'Evaluación técnica'],
+    precioDisplay: 'Consultar',
+    duracion: 'A definir con instructor',
+    cta: 'Consultar CP',
+    slug: 'canopy-piloting',
+    imagen: null,
+  },
 ];
 
 const nivelStyle: Record<string, { tag: string; tagColor: string }> = {
