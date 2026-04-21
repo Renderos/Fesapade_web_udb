@@ -18,30 +18,34 @@ const navLinks = [
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === '/';
 
   useEffect(() => {
+    setMounted(true);
+    setScrolled(window.scrollY > 20);
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Home not-scrolled: transparent (mobile + desktop)
-  // Other pages not-scrolled: white on mobile, dark blue on desktop
-  // Scrolled (all pages): white
-  const headerBg = scrolled
-    ? 'bg-white shadow-md'
-    : isHome
-      ? 'bg-transparent'
-      : 'bg-white lg:bg-[#1a2b4a]';
+  // Before mount, render as transparent to match SSR and avoid hydration flash
+  const headerBg = !mounted
+    ? 'bg-transparent'
+    : scrolled
+      ? 'bg-white shadow-md'
+      : isHome
+        ? 'bg-transparent'
+        : 'bg-white lg:bg-[#1a2b4a]';
 
-  // White text on dark/transparent backgrounds, dark on white
-  const textColor = scrolled
-    ? 'text-[#1a2b4a]'
-    : isHome
-      ? 'text-white'
-      : 'text-[#1a2b4a] lg:text-white';
+  const textColor = !mounted
+    ? 'text-white'
+    : scrolled
+      ? 'text-[#1a2b4a]'
+      : isHome
+        ? 'text-white'
+        : 'text-[#1a2b4a] lg:text-white';
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${headerBg}`}>
