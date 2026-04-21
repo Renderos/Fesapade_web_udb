@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 
 const navLinks = [
@@ -17,6 +18,8 @@ const navLinks = [
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -24,12 +27,24 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Home not-scrolled: transparent (mobile + desktop)
+  // Other pages not-scrolled: white on mobile, dark blue on desktop
+  // Scrolled (all pages): white
+  const headerBg = scrolled
+    ? 'bg-white shadow-md'
+    : isHome
+      ? 'bg-transparent'
+      : 'bg-white lg:bg-[#1a2b4a]';
+
+  // White text on dark/transparent backgrounds, dark on white
+  const textColor = scrolled
+    ? 'text-[#1a2b4a]'
+    : isHome
+      ? 'text-white'
+      : 'text-[#1a2b4a] lg:text-white';
+
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white shadow-md' : 'bg-transparent lg:bg-[#1a2b4a]'
-      }`}
-    >
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${headerBg}`}>
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16 md:h-20">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
@@ -40,11 +55,7 @@ export default function Navbar() {
             height={48}
             className="h-10 w-auto object-contain"
           />
-          <span
-            className={`font-bold text-lg tracking-wide hidden sm:block transition-colors ${
-              scrolled ? 'text-[#1a2b4a]' : 'text-white'
-            }`}
-          >
+          <span className={`font-bold text-lg tracking-wide hidden sm:block transition-colors ${textColor}`}>
             FESAPADE
           </span>
         </Link>
@@ -55,9 +66,7 @@ export default function Navbar() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className={`text-sm font-medium transition-colors hover:text-[#c8a84b] ${
-                  scrolled ? 'text-[#1a2b4a]' : 'text-white'
-                }`}
+                className={`text-sm font-medium transition-colors hover:text-[#c8a84b] ${textColor}`}
               >
                 {link.label}
               </Link>
@@ -76,9 +85,7 @@ export default function Navbar() {
         {/* Mobile menu toggle */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className={`lg:hidden p-2 rounded-md transition-colors ${
-            scrolled ? 'text-[#1a2b4a]' : 'text-white'
-          }`}
+          className={`lg:hidden p-2 rounded-md transition-colors ${textColor}`}
           aria-label="Abrir menú"
         >
           {menuOpen ? <X size={24} /> : <Menu size={24} />}
