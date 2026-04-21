@@ -123,10 +123,10 @@ export default async function CursosPage() {
     'courses?populate=imagen&sort=destacado:desc'
   );
 
-  const courses: DisplayCourse[] =
-    data?.data?.length
-      ? data.data.map(fromStrapi)
-      : staticCourses.map(fromStatic);
+  const strapiCourses = Array.isArray(data?.data) && data.data.length > 0 ? data.data : null;
+  const courses: DisplayCourse[] = strapiCourses
+    ? strapiCourses.map(fromStrapi)
+    : staticCourses.map(fromStatic);
 
   return (
     <div className="pt-20">
