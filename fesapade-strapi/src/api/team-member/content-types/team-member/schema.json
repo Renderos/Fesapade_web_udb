@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "team_members",
+  "info": {
+    "singularName": "team-member",
+    "pluralName": "team-members",
+    "displayName": "Team Member",
+    "description": "Miembros del equipo directivo de FESAPADE"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "nombre": {
+      "type": "string",
+      "required": true
+    },
+    "cargo": {
+      "type": "string",
+      "required": true
+    },
+    "foto": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    }
+  }
+}

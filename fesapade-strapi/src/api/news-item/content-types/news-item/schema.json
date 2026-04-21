@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "news_items",
+  "info": {
+    "singularName": "news-item",
+    "pluralName": "news-items",
+    "displayName": "News Item",
+    "description": "Noticias y eventos de FESAPADE"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "titulo": {
+      "type": "string",
+      "required": true
+    },
+    "resumen": {
+      "type": "text",
+      "required": true
+    },
+    "contenido": {
+      "type": "richtext",
+      "required": true
+    },
+    "fecha": {
+      "type": "date",
+      "required": true
+    },
+    "imagen": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "titulo",
+      "required": true
+    },
+    "categoria": {
+      "type": "string"
+    }
+  }
+}

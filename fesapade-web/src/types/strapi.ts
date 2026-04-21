@@ -41,6 +41,14 @@ export interface NewsItem {
   fecha: string;
   imagen: StrapiImage;
   slug: string;
+  categoria?: string;
+}
+
+export interface TeamMember {
+  id: number;
+  nombre: string;
+  cargo: string;
+  foto?: StrapiImage;
 }
 
 export interface GalleryItem {
