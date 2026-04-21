@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { fetchStrapiSafe } from '@/lib/strapi';
 import type { StrapiResponse, SiteConfig } from '@/types/strapi';
-import { FacebookIcon, InstagramIcon, YoutubeIcon } from '@/components/ui/SocialIcons';
+import { FacebookIcon, InstagramIcon, YoutubeIcon, TiktokIcon } from '@/components/ui/SocialIcons';
 
 const navLinks = [
   { href: '/quienes-somos', label: 'Quiénes somos' },
@@ -22,6 +22,7 @@ export default async function Footer() {
   const facebook = config?.facebook ?? '#';
   const instagram = config?.instagram ?? '#';
   const youtube = config?.youtube ?? '#';
+  const tiktok = config?.tiktok ?? '#';
 
   return (
     <footer className="bg-[#1a2b4a] text-white">
@@ -101,6 +102,15 @@ export default async function Footer() {
                 className="text-gray-400 hover:text-[#c8a84b] transition-colors"
               >
                 <YoutubeIcon size={20} />
+              </a>
+              <a
+                href={tiktok}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="TikTok"
+                className="text-gray-400 hover:text-[#c8a84b] transition-colors"
+              >
+                <TiktokIcon size={20} />
               </a>
             </div>
           </div>
