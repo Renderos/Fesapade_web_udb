@@ -1,9 +1,9 @@
 import { Wind, Users, Award, MapPin } from 'lucide-react';
 
 const stats = [
-  { icon: Wind, value: '+500', label: 'Saltos realizados' },
+  { icon: Wind, value: '+1000', label: 'Saltos realizados' },
   { icon: Users, value: '+200', label: 'Deportistas formados' },
-  { icon: Award, value: '15+', label: 'Años de experiencia' },
+  { icon: Award, value: '30+', label: 'Años de experiencia' },
   { icon: MapPin, value: 'SV', label: 'El Salvador' },
 ];
 

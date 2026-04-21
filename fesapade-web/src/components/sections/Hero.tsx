@@ -4,11 +4,15 @@ import { ChevronDown } from 'lucide-react';
 export default function Hero() {
   return (
     <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
-      {/* Background image with overlay */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('/images/hero-bg.jpg')" }}
-      />
+      {/* Background video with overlay */}
+      <div className="absolute inset-0 overflow-hidden">
+        <iframe
+          src="https://www.youtube.com/embed/j54R3P76aS4?si=gWNh06KE5Qqqfdix&controls=0&autoplay=1&mute=1&loop=1&playlist=j54R3P76aS4&playsinline=1&disablekb=1&modestbranding=1"
+          title="Hero background"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[177.78vh] min-w-full h-[56.25vw] min-h-full pointer-events-none"
+        />
+      </div>
       <div className="absolute inset-0 bg-gradient-to-b from-[#1a2b4a]/70 via-[#1a2b4a]/50 to-[#1a2b4a]/80" />
 
       {/* Content */}
