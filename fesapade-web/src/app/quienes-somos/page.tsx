@@ -153,16 +153,15 @@ export default async function QuienesSomosPage() {
       <section className="py-16 bg-gray-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-[#1a2b4a] text-center mb-12">Nuestros valores</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {(
               [
-                { label: 'Seguridad', desc: 'Pilar fundamental en la práctica de nuestro deporte.' },
-                { label: 'Igualdad', desc: 'La Federación no discrimina a nadie (raza, sexo, política o religión).' },
-                { label: 'Disciplina', desc: 'Primordial para lograr nuestros objetivos.' },
-                { label: 'Patriotismo', desc: 'Sentimiento de unión y respeto a nuestra querida patria.' },
-                { label: 'Lealtad', desc: 'Compromiso de fidelidad hacia los que componen la Federación.' },
-                { label: 'Compañerismo', desc: 'Colaboración y ayuda a nuestros compañeros.' },
-                { label: 'Responsabilidad', desc: 'Reflexionar, orientar y valorar las consecuencias de nuestros actos.' },
+                { label: 'Seguridad Operacional', desc: 'La seguridad es nuestra prioridad en cada salto. Actuamos con criterio, preparación y respeto absoluto por los protocolos.' },
+                { label: 'Resiliencia', desc: 'Nos adaptamos, aprendemos y respondemos con firmeza ante cada reto.' },
+                { label: 'Integridad', desc: 'Actuamos con honestidad, respeto y transparencia en todo momento.' },
+                { label: 'Excelencia Técnica', desc: 'Perfeccionamos habilidades y ejecutamos con precisión en cada salto.' },
+                { label: 'Disciplina', desc: 'Seguimos procesos y estándares con constancia y rigor.' },
+                { label: 'Unidad', desc: 'Coordinamos, confiamos y actuamos como un solo equipo.' },
               ] as const
             ).map((v) => (
               <div
