@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
-import { fetchStrapiSafe, getStrapiImageUrl } from '@/lib/strapi';
+import { fetchStrapiSafe, fetchPageHeaderBgs, getStrapiImageUrl } from '@/lib/strapi';
 import type { StrapiResponse, Course } from '@/types/strapi';
+import PageHeader from '@/components/layout/PageHeader';
 
 export const metadata: Metadata = {
   title: 'Cursos & Fun Jumps | FESAPADE',
@@ -119,9 +120,13 @@ function fromStatic(c: (typeof staticCourses)[number]): DisplayCourse {
 }
 
 export default async function CursosPage() {
-  const data = await fetchStrapiSafe<StrapiResponse<Course[]>>(
-    'courses?populate=imagen&sort=destacado:desc'
-  );
+  const [data, pageHeaderData] = await Promise.all([
+    fetchStrapiSafe<StrapiResponse<Course[]>>('courses?populate=imagen&sort=destacado:desc'),
+    fetchPageHeaderBgs(),
+  ]);
+  const bgUrl = pageHeaderData?.data?.cursosBg
+    ? getStrapiImageUrl(pageHeaderData.data.cursosBg.url)
+    : null;
 
   const strapiCourses = Array.isArray(data?.data) && data.data.length > 0 ? data.data : null;
   const courses: DisplayCourse[] = strapiCourses
@@ -129,20 +134,12 @@ export default async function CursosPage() {
     : staticCourses.map(fromStatic);
 
   return (
-    <div className="pt-20">
-      {/* Header */}
-      <div className="bg-[#1a2b4a] text-white py-20 text-center">
-        <p className="text-[#c8a84b] text-sm font-semibold uppercase tracking-widest mb-3">
-          FESAPADE
-        </p>
-        <h1 className="text-4xl md:text-5xl font-extrabold mb-4">
-          Cursos & Fun Jumps
-        </h1>
-        <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-          Tenemos un programa para cada etapa de tu aventura. Desde tu primer
-          salto hasta convertirte en instructor.
-        </p>
-      </div>
+    <div>
+      <PageHeader
+        title="Cursos & Fun Jumps"
+        subtitle="Tenemos un programa para cada etapa de tu aventura. Desde tu primer salto hasta convertirte en instructor."
+        strapiImageUrl={bgUrl}
+      />
 
       {/* Courses grid */}
       <section className="py-20 bg-white">

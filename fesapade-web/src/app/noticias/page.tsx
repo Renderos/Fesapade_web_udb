@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
-import { fetchStrapiSafe, getStrapiImageUrl } from '@/lib/strapi';
+import { fetchStrapiSafe, fetchPageHeaderBgs, getStrapiImageUrl } from '@/lib/strapi';
 import type { StrapiResponse, NewsItem, GalleryItem } from '@/types/strapi';
+import PageHeader from '@/components/layout/PageHeader';
 
 export const metadata: Metadata = {
   title: 'Noticias & Galería | FESAPADE',
@@ -54,25 +55,21 @@ function formatDate(iso: string): string {
 }
 
 export default async function NoticiasPage() {
-  const [newsData, galleryData] = await Promise.all([
+  const [newsData, galleryData, pageHeaderData] = await Promise.all([
     fetchStrapiSafe<StrapiResponse<NewsItem[]>>('news-items?populate=imagen&sort=fecha:desc'),
     fetchStrapiSafe<StrapiResponse<GalleryItem[]>>('gallery-items?populate=imagen'),
+    fetchPageHeaderBgs(),
   ]);
+  const bgUrl = pageHeaderData?.data?.noticiasBg
+    ? getStrapiImageUrl(pageHeaderData.data.noticiasBg.url)
+    : null;
 
   const news = newsData?.data?.length ? newsData.data : staticNews;
   const gallery = galleryData?.data ?? [];
 
   return (
-    <div className="pt-20">
-      {/* Header */}
-      <div className="bg-[#1a2b4a] text-white py-20 text-center">
-        <p className="text-[#c8a84b] text-sm font-semibold uppercase tracking-widest mb-3">
-          FESAPADE
-        </p>
-        <h1 className="text-4xl md:text-5xl font-extrabold">
-          Noticias & Galería
-        </h1>
-      </div>
+    <div>
+      <PageHeader title="Noticias & Galería" strapiImageUrl={bgUrl} />
 
       {/* News */}
       <section className="py-20 bg-white">

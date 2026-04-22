@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import ContactoForm from '@/components/sections/ContactoForm';
+import PageHeader from '@/components/layout/PageHeader';
+import { fetchPageHeaderBgs, getStrapiImageUrl } from '@/lib/strapi';
 
 export const metadata: Metadata = {
   title: 'Contáctanos | FESAPADE',
@@ -7,19 +9,19 @@ export const metadata: Metadata = {
     '¿Tienes preguntas sobre nuestros cursos o fun jumps? Escríbenos y te respondemos lo antes posible.',
 };
 
-export default function ContactoPage() {
+export default async function ContactoPage() {
+  const pageHeaderData = await fetchPageHeaderBgs();
+  const bgUrl = pageHeaderData?.data?.contactoBg
+    ? getStrapiImageUrl(pageHeaderData.data.contactoBg.url)
+    : null;
+
   return (
-    <div className="pt-20">
-      <div className="bg-[#1a2b4a] text-white py-20 text-center">
-        <p className="text-[#c8a84b] text-sm font-semibold uppercase tracking-widest mb-3">
-          FESAPADE
-        </p>
-        <h1 className="text-4xl md:text-5xl font-extrabold">Contáctanos</h1>
-        <p className="mt-4 text-gray-300 max-w-xl mx-auto">
-          ¿Tienes preguntas sobre nuestros cursos o fun jumps? Escríbenos y te
-          respondemos lo antes posible.
-        </p>
-      </div>
+    <div>
+      <PageHeader
+        title="Contáctanos"
+        subtitle="¿Tienes preguntas sobre nuestros cursos o fun jumps? Escríbenos y te respondemos lo antes posible."
+        strapiImageUrl={bgUrl}
+      />
 
       <ContactoForm />
     </div>

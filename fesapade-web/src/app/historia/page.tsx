@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import PageHeader from '@/components/layout/PageHeader';
+import { fetchPageHeaderBgs, getStrapiImageUrl } from '@/lib/strapi';
 
 export const metadata: Metadata = {
   title: 'Historia | FESAPADE',
@@ -32,18 +34,15 @@ const timeline = [
   },
 ];
 
-export default function HistoriaPage() {
+export default async function HistoriaPage() {
+  const pageHeaderData = await fetchPageHeaderBgs();
+  const bgUrl = pageHeaderData?.data?.historiaBg
+    ? getStrapiImageUrl(pageHeaderData.data.historiaBg.url)
+    : null;
+
   return (
-    <div className="pt-20">
-      {/* Page header */}
-      <div className="bg-[#1a2b4a] text-white py-20 text-center">
-        <p className="text-[#c8a84b] text-sm font-semibold uppercase tracking-widest mb-3">
-          FESAPADE
-        </p>
-        <h1 className="text-4xl md:text-5xl font-extrabold">
-          Nuestra historia
-        </h1>
-      </div>
+    <div>
+      <PageHeader title="Nuestra historia" strapiImageUrl={bgUrl} />
 
       {/* Intro */}
       <section className="py-16 bg-white">

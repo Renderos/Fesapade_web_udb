@@ -58,6 +58,15 @@ export interface GalleryItem {
   categoria: 'foto' | 'video';
 }
 
+export interface PageHeader {
+  id: number;
+  quienesSomosBg?: StrapiImage | null;
+  historiaBg?: StrapiImage | null;
+  cursosBg?: StrapiImage | null;
+  noticiasBg?: StrapiImage | null;
+  contactoBg?: StrapiImage | null;
+}
+
 export interface SiteConfig {
   id: number;
   telefono: string;
