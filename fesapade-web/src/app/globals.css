@@ -18,6 +18,74 @@ html {
   scroll-behavior: smooth;
 }
 
+/* react-phone-number-input — full reset, wrapper div owns border/radius/focus ring */
+.PhoneInput {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* Country selector column */
+.PhoneInputCountry {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0 0.5rem 0 0.875rem;
+  border-right: 1px solid #e5e7eb;
+  flex-shrink: 0;
+}
+
+/* The native <select> — invisible chrome, shows emoji flag + arrow only */
+.PhoneInputCountrySelect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  border: 0;
+  z-index: 1;
+}
+
+.PhoneInputCountrySelectArrow {
+  display: inline-block;
+  width: 0.3em;
+  height: 0.3em;
+  border-style: solid;
+  border-color: #6b7280;
+  border-top-width: 0;
+  border-bottom-width: 1px;
+  border-left-width: 0;
+  border-right-width: 1px;
+  transform: rotate(45deg);
+  margin-bottom: 0.1em;
+}
+
+/* Flag emoji wrapper — no image, no black square */
+.PhoneInputCountryIcon {
+  font-size: 1.25em;
+  line-height: 1;
+}
+
+/* Hide the SVG img inside the icon (only used when not in unicodeFlags mode) */
+.PhoneInputCountryIconImg {
+  display: none;
+}
+
+/* The actual phone number text input */
+.PhoneInputInput {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  background: transparent;
+  color: inherit;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
