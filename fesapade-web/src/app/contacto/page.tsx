@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import ContactoForm from '@/components/sections/ContactoForm';
 import PageHeader from '@/components/layout/PageHeader';
-import { fetchPageHeaderBgs, getStrapiImageUrl } from '@/lib/strapi';
+import { fetchPageHeaderBgs, fetchStrapiSafe, getStrapiImageUrl } from '@/lib/strapi';
+import type { StrapiResponse, SiteConfig } from '@/types/strapi';
 
 export const metadata: Metadata = {
   title: 'Contáctanos | FESAPADE',
@@ -10,10 +11,16 @@ export const metadata: Metadata = {
 };
 
 export default async function ContactoPage() {
-  const pageHeaderData = await fetchPageHeaderBgs();
+  const [pageHeaderData, siteConfigData] = await Promise.all([
+    fetchPageHeaderBgs(),
+    fetchStrapiSafe<StrapiResponse<SiteConfig>>('site-config'),
+  ]);
+
   const bgUrl = pageHeaderData?.data?.contactoBg
     ? getStrapiImageUrl(pageHeaderData.data.contactoBg.url)
     : null;
+
+  const config = siteConfigData?.data;
 
   return (
     <div>
@@ -23,7 +30,10 @@ export default async function ContactoPage() {
         strapiImageUrl={bgUrl}
       />
 
-      <ContactoForm />
+      <ContactoForm
+        email={config?.email}
+        telefono={config?.telefono}
+      />
     </div>
   );
 }

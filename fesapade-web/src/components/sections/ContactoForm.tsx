@@ -3,7 +3,12 @@
 import { useState, FormEvent } from 'react';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 
-export default function ContactoForm() {
+interface Props {
+  email?: string;
+  telefono?: string;
+}
+
+export default function ContactoForm({ email, telefono }: Props) {
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   const [form, setForm] = useState({
     nombre: '',
@@ -50,10 +55,10 @@ export default function ContactoForm() {
                 <div>
                   <div className="font-semibold text-[#1a2b4a]">Email</div>
                   <a
-                    href="mailto:info@fesapade.org.sv"
+                    href={`mailto:${email ?? 'info@fesapade.org.sv'}`}
                     className="text-gray-500 hover:text-[#c8a84b] transition-colors"
                   >
-                    info@fesapade.org.sv
+                    {email ?? 'info@fesapade.org.sv'}
                   </a>
                 </div>
               </li>
@@ -62,10 +67,10 @@ export default function ContactoForm() {
                 <div>
                   <div className="font-semibold text-[#1a2b4a]">Teléfono / WhatsApp</div>
                   <a
-                    href="tel:+50300000000"
+                    href={`tel:${(telefono ?? '+503 0000-0000').replace(/\s/g, '')}`}
                     className="text-gray-500 hover:text-[#c8a84b] transition-colors"
                   >
-                    +503 0000-0000
+                    {telefono ?? '+503 0000-0000'}
                   </a>
                 </div>
               </li>
@@ -78,9 +83,16 @@ export default function ContactoForm() {
               </li>
             </ul>
 
-            {/* Map placeholder */}
-            <div className="mt-10 rounded-2xl bg-gray-100 h-56 flex items-center justify-center text-gray-400">
-              🗺️ Mapa — se integrará con Google Maps
+            <div className="mt-10 rounded-2xl overflow-hidden h-56">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3876.3968753222744!2d-89.11601354440958!3d13.694396440381983!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f6337b77bf77a81%3A0x7fc3c41a35277192!2sAeropuerto%20Internacional%20de%20Ilopango!5e0!3m2!1ses-419!2ssv!4v1776889833104!5m2!1ses-419!2ssv"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
             </div>
           </div>
 
