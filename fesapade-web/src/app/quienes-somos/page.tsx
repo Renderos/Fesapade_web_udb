@@ -44,10 +44,14 @@ export default async function QuienesSomosPage() {
 
   return (
     <div>
-      <PageHeader title="Quiénes somos" strapiImageUrl={bgUrl} />
+      <PageHeader title="Quiénes somos" 
+          subtitle='La Federación Salvadoreña de Paracaidismo y Aerodeportes -FESAPADE- es el organismo
+            rector y máxima autoridad de todas las actividades del Paracaidismo y todas las demás
+            actividades Aerodeportivas en todas sus modalidades y categorías, en todo el país.'
+          strapiImageUrl={bgUrl} />
 
       {/* About */}
-      <section className="py-20 bg-white">
+      {/* <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-gray-600 leading-relaxed text-lg">
             La Federación Salvadoreña de Paracaidismo y Aerodeportes -FESAPADE- es el organismo
@@ -55,7 +59,7 @@ export default async function QuienesSomosPage() {
             actividades Aerodeportivas en todas sus modalidades y categorías, en todo el país.
           </p>
         </div>
-      </section>
+      </section> */}
 
       {/* Affiliations */}
       <section className="py-16 bg-gray-50">

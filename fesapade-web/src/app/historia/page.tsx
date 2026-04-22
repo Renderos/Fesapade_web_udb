@@ -42,10 +42,16 @@ export default async function HistoriaPage() {
 
   return (
     <div>
-      <PageHeader title="Nuestra historia" strapiImageUrl={bgUrl} />
+      <PageHeader 
+        title="Nuestra historia" 
+        subtitle='La historia del paracaidismo en El Salvador es una historia de
+            valentía, disciplina y orgullo nacional. Cada capítulo ha
+            sido escrito con la misma determinación que se necesita para saltar
+            al vacío.'
+        strapiImageUrl={bgUrl} />
 
       {/* Intro */}
-      <section className="py-16 bg-white">
+      {/* <section className="py-16 bg-white">
         <div className="max-w-3xl mx-auto px-4 text-center">
           <p className="text-gray-600 text-lg leading-relaxed">
             La historia del paracaidismo en El Salvador es una historia de
@@ -56,7 +62,7 @@ export default async function HistoriaPage() {
             al vacío.
           </p>
         </div>
-      </section>
+      </section> */}
 
       {/* Timeline */}
       <section className="py-10 pb-24 bg-gray-50">
