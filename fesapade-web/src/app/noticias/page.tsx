@@ -162,9 +162,6 @@ export default async function NoticiasPage() {
                   </div>
                 ))}
               </div>
-              <p className="text-center text-gray-400 text-sm mt-6">
-                Las imágenes se cargan desde el CMS una vez configurado.
-              </p>
             </>
           )}
         </div>
