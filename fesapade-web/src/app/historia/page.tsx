@@ -9,28 +9,28 @@ export const metadata: Metadata = {
 
 const timeline = [
   {
-    year: '1980s',
-    title: 'Los primeros saltos',
+    year: '1963',
+    title: 'Los orígenes militares',
     description:
-      'Los primeros paracaidistas salvadoreños realizan saltos de manera independiente, marcando el inicio de este deporte en el país.',
+      'El paracaidismo en El Salvador tuvo su origen militar en 1963 con la creación de la primera Compañía de Paracaidistas, entrenada en Estados Unidos y bajo el mando inicial del Coronel José Eduardo Iraheta Castellón. Esta unidad, fundamental durante el conflicto armado, pasó de la Fuerza Aérea al Comando de Fuerzas Especiales en 1993, consolidándose como una élite militar.',
   },
   {
-    year: '1990s',
-    title: 'Organización de la comunidad',
+    year: '1969',
+    title: 'Bautismo de fuego',
     description:
-      'Se forman los primeros grupos organizados de paracaidistas, estableciendo las bases de lo que sería la federación.',
+      'Durante la Guerra de las 100 Horas contra Honduras, los paracaidistas realizan misiones estratégicas utilizando aviones C-47, consolidándose como fuerza de élite.',
   },
   {
-    year: '2000s',
+    year: '1994',
     title: 'Fundación de FESAPADE',
     description:
-      'Se constituye formalmente la Federación Salvadoreña de Paracaidismo y Aerodeportes, afiliándose a organismos internacionales.',
+      'La Federación Salvadoreña de Paracaidismo y Aero Deportes nació un 17 de Marzo de 1994. Su afiliación a INDES El Salvador fue celebrada en el Estadio Jorge "Mágico" González con un salto a 12,000 pies de altura desde un avión AC-47, del cual se lanzaron 41 paracaidistas en una sola pasada.',
   },
   {
     year: 'Hoy',
-    title: 'Crecimiento y excelencia',
+    title: 'Una federación multidisciplinaria',
     description:
-      'FESAPADE cuenta con instructores certificados, programas de formación completos y una comunidad activa de deportistas.',
+      'La Federación Salvadoreña de Paracaidismo y Aerodeportes (FESAPADE) es una Federación Deportiva Nacional de ámbito estatal y multidisciplinaria que engloba especialidades de los deportes aéreos: Aeromodelísmo, Aerostación, Paracaidísmo, Parapente, Ultraligeros, Vuelo Acrobático, Vuelo a Vela, Vuelo con Motor y Vuelo Libre.',
   },
 ];
 
@@ -49,10 +49,11 @@ export default async function HistoriaPage() {
         <div className="max-w-3xl mx-auto px-4 text-center">
           <p className="text-gray-600 text-lg leading-relaxed">
             La historia del paracaidismo en El Salvador es una historia de
-            pasión, valentía y comunidad. Desde los primeros saltos pioneros
-            hasta la consolidación de una federación reconocida
-            internacionalmente, el camino ha sido tan emocionante como un salto
-            en caída libre.
+            valentía, disciplina y orgullo nacional. Desde sus raíces militares
+            en 1963 hasta la consolidación de una federación deportiva
+            multidisciplinaria reconocida internacionalmente, cada capítulo ha
+            sido escrito con la misma determinación que se necesita para saltar
+            al vacío.
           </p>
         </div>
       </section>
