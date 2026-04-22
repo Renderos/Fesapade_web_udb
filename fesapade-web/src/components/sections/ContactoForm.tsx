@@ -1,7 +1,10 @@
 'use client';
 
-import { useState, FormEvent } from 'react';
+import { useState, useMemo, useRef, forwardRef, FormEvent } from 'react';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import PhoneInput from 'react-phone-number-input';
+import { isValidPhoneNumber } from 'libphonenumber-js';
+import { z } from 'zod';
 
 interface Props {
   email?: string;
@@ -10,10 +13,31 @@ interface Props {
 
 export default function ContactoForm({ email, telefono }: Props) {
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
+  const [phoneValue, setPhoneValue] = useState<string | undefined>();
+  const [phoneError, setPhoneError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const phoneCountryRef = useRef<string>('SV');
+
+  // Custom input that blocks a 9th digit for El Salvador (country code +503 = 3 digits).
+  const LimitedPhoneInput = useMemo(
+    () =>
+      forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement>>(
+        (props, ref) => {
+          const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+            if (phoneCountryRef.current === 'SV' && /^\d$/.test(e.key)) {
+              const nationalDigits = e.currentTarget.value.replace(/\D/g, '').slice(3);
+              if (nationalDigits.length >= 8) e.preventDefault();
+            }
+            props.onKeyDown?.(e);
+          };
+          return <input {...props} ref={ref} onKeyDown={handleKeyDown} />;
+        }
+      ),
+    [] // stable — reads country from ref, never needs to recreate
+  );
   const [form, setForm] = useState({
     nombre: '',
     email: '',
-    telefono: '',
     interes: '',
     mensaje: '',
   });
@@ -24,14 +48,33 @@ export default function ContactoForm({ email, telefono }: Props) {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const handlePhoneChange = (value: string | undefined) => {
+    setPhoneValue(value);
+    if (phoneError) setPhoneError('');
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
+    const emailResult = z.string().email().safeParse(form.email);
+    if (!emailResult.success) {
+      setEmailError('Ingresa un correo electrónico válido.');
+      return;
+    }
+    setEmailError('');
+
+    if (phoneValue && !isValidPhoneNumber(phoneValue)) {
+      setPhoneError('Ingresa un número de teléfono válido para el país seleccionado.');
+      return;
+    }
+
     setStatus('sending');
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        // phoneValue is already E.164 (e.g. +50312345678) when valid
+        body: JSON.stringify({ ...form, telefono: phoneValue ?? '' }),
       });
       setStatus(res.ok ? 'sent' : 'error');
     } catch {
@@ -135,18 +178,30 @@ export default function ContactoForm({ email, telefono }: Props) {
                       placeholder="Tu nombre"
                     />
                   </div>
+
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Teléfono
                     </label>
-                    <input
-                      type="tel"
-                      name="telefono"
-                      value={form.telefono}
-                      onChange={handleChange}
-                      className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#c8a84b] transition"
-                      placeholder="+503 ..."
-                    />
+                    <div
+                      className={`border rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-[#c8a84b] transition ${
+                        phoneError ? 'border-red-400' : 'border-gray-200'
+                      }`}
+                    >
+                      <PhoneInput
+                        international
+                        defaultCountry="SV"
+                        countries={['SV', 'GT', 'HN', 'NI', 'CR', 'PA', 'MX', 'US', 'CO', 'ES']}
+                        value={phoneValue}
+                        onChange={handlePhoneChange}
+                        onCountryChange={(c) => { phoneCountryRef.current = c ?? 'SV'; }}
+                        countrySelectProps={{ unicodeFlags: true }}
+                        inputComponent={LimitedPhoneInput}
+                      />
+                    </div>
+                    {phoneError && (
+                      <p className="mt-1 text-xs text-red-500">{phoneError}</p>
+                    )}
                   </div>
                 </div>
 
@@ -159,10 +214,18 @@ export default function ContactoForm({ email, telefono }: Props) {
                     name="email"
                     required
                     value={form.email}
-                    onChange={handleChange}
-                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#c8a84b] transition"
+                    onChange={(e) => {
+                      handleChange(e);
+                      if (emailError) setEmailError('');
+                    }}
+                    className={`w-full border rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#c8a84b] transition ${
+                      emailError ? 'border-red-400' : 'border-gray-200'
+                    }`}
                     placeholder="tu@email.com"
                   />
+                  {emailError && (
+                    <p className="mt-1 text-xs text-red-500">{emailError}</p>
+                  )}
                 </div>
 
                 <div>
