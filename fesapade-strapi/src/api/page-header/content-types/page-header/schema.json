@@ -1,0 +1,40 @@
+{
+  "kind": "singleType",
+  "collectionName": "page_headers",
+  "info": {
+    "singularName": "page-header",
+    "pluralName": "page-headers",
+    "displayName": "Page Headers",
+    "description": "Imágenes de fondo para el encabezado de cada página interna"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "quienesSomosBg": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "historiaBg": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "cursosBg": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "noticiasBg": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "contactoBg": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    }
+  }
+}

@@ -537,6 +537,39 @@ export interface ApiNewsItemNewsItem extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiPageHeaderPageHeader extends Struct.SingleTypeSchema {
+  collectionName: 'page_headers';
+  info: {
+    description: 'Im\u00E1genes de fondo para el encabezado de cada p\u00E1gina interna';
+    displayName: 'Page Headers';
+    pluralName: 'page-headers';
+    singularName: 'page-header';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    contactoBg: Schema.Attribute.Media<'images'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    cursosBg: Schema.Attribute.Media<'images'>;
+    historiaBg: Schema.Attribute.Media<'images'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::page-header.page-header'
+    > &
+      Schema.Attribute.Private;
+    noticiasBg: Schema.Attribute.Media<'images'>;
+    publishedAt: Schema.Attribute.DateTime;
+    quienesSomosBg: Schema.Attribute.Media<'images'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiSiteConfigSiteConfig extends Struct.SingleTypeSchema {
   collectionName: 'site_configs';
   info: {
@@ -1118,6 +1151,7 @@ declare module '@strapi/strapi' {
       'api::course.course': ApiCourseCourse;
       'api::gallery-item.gallery-item': ApiGalleryItemGalleryItem;
       'api::news-item.news-item': ApiNewsItemNewsItem;
+      'api::page-header.page-header': ApiPageHeaderPageHeader;
       'api::site-config.site-config': ApiSiteConfigSiteConfig;
       'api::team-member.team-member': ApiTeamMemberTeamMember;
       'plugin::content-releases.release': PluginContentReleasesRelease;

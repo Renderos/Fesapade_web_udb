@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import { fetchStrapiSafe, getStrapiImageUrl } from '@/lib/strapi';
+import { fetchStrapiSafe, fetchPageHeaderBgs, getStrapiImageUrl } from '@/lib/strapi';
 import type { StrapiResponse, TeamMember } from '@/types/strapi';
+import PageHeader from '@/components/layout/PageHeader';
 
 export const metadata: Metadata = {
   title: 'Quiénes somos | FESAPADE',
@@ -26,9 +27,13 @@ function initials(nombre: string): string {
 }
 
 export default async function QuienesSomosPage() {
-  const data = await fetchStrapiSafe<StrapiResponse<TeamMember[]>>(
-    'team-members?populate=foto&sort=id:asc'
-  );
+  const [data, pageHeaderData] = await Promise.all([
+    fetchStrapiSafe<StrapiResponse<TeamMember[]>>('team-members?populate=foto&sort=id:asc'),
+    fetchPageHeaderBgs(),
+  ]);
+  const bgUrl = pageHeaderData?.data?.quienesSomosBg
+    ? getStrapiImageUrl(pageHeaderData.data.quienesSomosBg.url)
+    : null;
 
   const team = (data?.data?.length ? data.data : staticTeam) as Array<{
     id: number;
@@ -38,14 +43,8 @@ export default async function QuienesSomosPage() {
   }>;
 
   return (
-    <div className="pt-20">
-      {/* Page header */}
-      <div className="bg-[#1a2b4a] text-white py-20 text-center">
-        <p className="text-[#c8a84b] text-sm font-semibold uppercase tracking-widest mb-3">
-          FESAPADE
-        </p>
-        <h1 className="text-4xl md:text-5xl font-extrabold">Quiénes somos</h1>
-      </div>
+    <div>
+      <PageHeader title="Quiénes somos" strapiImageUrl={bgUrl} />
 
       {/* About */}
       <section className="py-20 bg-white">

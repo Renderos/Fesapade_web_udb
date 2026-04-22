@@ -30,6 +30,12 @@ export async function fetchStrapiSafe<T>(
   }
 }
 
+export async function fetchPageHeaderBgs() {
+  return fetchStrapiSafe<import('@/types/strapi').StrapiResponse<import('@/types/strapi').PageHeader>>(
+    'page-header?populate=*'
+  );
+}
+
 export function getStrapiImageUrl(url: string): string {
   if (!url) return '/images/placeholder.jpg';
   if (url.startsWith('http')) return url;
