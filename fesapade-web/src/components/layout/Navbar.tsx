@@ -63,7 +63,7 @@ export default function Navbar() {
 
         {/* CTA Button */}
         <Link
-          href="/cursos"
+          href="/contacto"
           className="hidden lg:inline-flex items-center px-4 py-2 rounded-full bg-[#c8a84b] text-white text-sm font-semibold hover:bg-[#b8953d] transition-colors"
         >
           Reservar ahora
