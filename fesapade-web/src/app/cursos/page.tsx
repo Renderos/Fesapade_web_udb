@@ -137,7 +137,7 @@ export default async function CursosPage() {
     <div>
       <PageHeader
         title="Cursos & Fun Jumps"
-        subtitle="Tenemos un programa para cada etapa de tu aventura. Desde tu primer salto hasta convertirte en instructor."
+        subtitle="Aprende con el método tradicional: desde la apertura asistida hasta la libertad de la caída libre. Formamos paracaidistas sólidos. ¿Ya tienes experiencia? Súbete al avión y disfruta de nuestros Fun Jumps."
         strapiImageUrl={bgUrl}
       />
 
