@@ -14,15 +14,15 @@ export default ({ env }: { env: any }): any[] => [
             "'self'",
             'data:',
             'blob:',
-            'dl.airtable.com',
-            'res.cloudinary.com', // Dominio de Cloudinary
+            'https://res.cloudinary.com', // Añade el protocolo https://
+            '*.cloudinary.com',           // Añade el comodín para cualquier subdominio
           ],
           'media-src': [
             "'self'",
             'data:',
             'blob:',
-            'dl.airtable.com',
-            'res.cloudinary.com', // Dominio de Cloudinary
+            'https://res.cloudinary.com',
+            '*.cloudinary.com',
           ],
           upgradeInsecureRequests: null,
         },
