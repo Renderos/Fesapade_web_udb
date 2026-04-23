@@ -14,8 +14,8 @@ export default ({ env }: { env: any }): any[] => [
             "'self'",
             'data:',
             'blob:',
-            'https://res.cloudinary.com', // Añade el protocolo https://
-            '*.cloudinary.com',           // Añade el comodín para cualquier subdominio
+            'https://res.cloudinary.com',
+            '*.cloudinary.com',
           ],
           'media-src': [
             "'self'",
