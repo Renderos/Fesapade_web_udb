@@ -28,7 +28,7 @@ function initials(nombre: string): string {
 
 export default async function QuienesSomosPage() {
   const [data, pageHeaderData] = await Promise.all([
-    fetchStrapiSafe<StrapiResponse<TeamMember[]>>('team-members?populate=foto&sort=id:asc'),
+    fetchStrapiSafe<StrapiResponse<TeamMember[]>>('team-members?populate=foto&sort=id:asc&status=published'),
     fetchPageHeaderBgs(),
   ]);
   const bgUrl = pageHeaderData?.data?.quienesSomosBg

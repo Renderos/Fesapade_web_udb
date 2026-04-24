@@ -121,7 +121,7 @@ function fromStatic(c: (typeof staticCourses)[number]): DisplayCourse {
 
 export default async function CursosPage() {
   const [data, pageHeaderData] = await Promise.all([
-    fetchStrapiSafe<StrapiResponse<Course[]>>('courses?populate=imagen&sort=destacado:desc'),
+    fetchStrapiSafe<StrapiResponse<Course[]>>('courses?populate=imagen&sort=destacado:desc&status=published'),
     fetchPageHeaderBgs(),
   ]);
   const bgUrl = pageHeaderData?.data?.cursosBg
