@@ -67,6 +67,15 @@ export interface PageHeader {
   contactoBg?: StrapiImage | null;
 }
 
+export interface HighlightFeature {
+  id: number;
+  titulo: string;
+  descripcion: string;
+  icono: string;
+  orden: number;
+  imagenFondo?: StrapiImage | null;
+}
+
 export interface SiteConfig {
   id: number;
   telefono: string;

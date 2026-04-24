@@ -1,4 +1,7 @@
+import Image from 'next/image';
 import { Wind, Users, Award, MapPin } from 'lucide-react';
+import { fetchStrapiSafe, getStrapiImageUrl } from '@/lib/strapi';
+import type { StrapiResponse, HighlightFeature } from '@/types/strapi';
 
 const stats = [
   { icon: Wind, value: '+1000', label: 'Saltos realizados' },
@@ -7,28 +10,83 @@ const stats = [
   { icon: MapPin, value: 'SV', label: 'El Salvador' },
 ];
 
-const features = [
+const staticFeatures = [
   {
     title: 'Cursos certificados',
     description:
       'Programas de formación con instructores certificados internacionalmente. Desde nivel básico hasta avanzado.',
     icon: '🪂',
+    imagenFondo: null,
   },
   {
     title: 'Fun Jumps',
     description:
       'Jornadas de saltos recreativos para todos los niveles. Únete a nuestra comunidad y disfruta del cielo salvadoreño.',
     icon: '🌤️',
+    imagenFondo: null,
   },
   {
     title: 'Seguridad primero',
     description:
       'Equipos certificados, protocolos estrictos y supervisión constante. Tu seguridad es nuestra prioridad.',
     icon: '🛡️',
+    imagenFondo: null,
   },
 ];
 
-export default function Highlights() {
+type FeatureItem = {
+  title: string;
+  description: string;
+  icon: string;
+  imagenFondo: { url: string; alternativeText: string | null } | null;
+};
+
+function FeatureCard({ f }: { f: FeatureItem }) {
+  const imgUrl = f.imagenFondo ? getStrapiImageUrl(f.imagenFondo.url) : null;
+
+  if (imgUrl) {
+    return (
+      <div className="group relative rounded-2xl overflow-hidden min-h-64 hover:shadow-xl transition-all duration-300">
+        <Image
+          src={imgUrl}
+          alt={f.imagenFondo?.alternativeText ?? f.title}
+          fill
+          className="object-cover group-hover:scale-105 transition-transform duration-500"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
+        <div className="relative z-10 p-8 flex flex-col justify-end h-full">
+          <div className="text-4xl mb-3">{f.icon}</div>
+          <h3 className="text-xl font-bold text-white mb-2">{f.title}</h3>
+          <p className="text-gray-200 text-sm leading-relaxed">{f.description}</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="group p-8 rounded-2xl border border-gray-100 hover:border-[#c8a84b] hover:shadow-lg transition-all duration-300">
+      <div className="text-4xl mb-4">{f.icon}</div>
+      <h3 className="text-xl font-bold text-[#1a2b4a] mb-3">{f.title}</h3>
+      <p className="text-gray-500 leading-relaxed">{f.description}</p>
+    </div>
+  );
+}
+
+export default async function Highlights() {
+  const data = await fetchStrapiSafe<StrapiResponse<HighlightFeature[]>>(
+    'highlight-features?populate=imagenFondo&sort=orden:asc&status=published'
+  );
+
+  const features: FeatureItem[] =
+    data?.data?.length
+      ? data.data.map((f) => ({
+          title: f.titulo,
+          description: f.descripcion,
+          icon: f.icono,
+          imagenFondo: f.imagenFondo ?? null,
+        }))
+      : staticFeatures;
+
   return (
     <>
       {/* Stats bar */}
@@ -61,16 +119,7 @@ export default function Highlights() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {features.map((f) => (
-              <div
-                key={f.title}
-                className="group p-8 rounded-2xl border border-gray-100 hover:border-[#c8a84b] hover:shadow-lg transition-all duration-300"
-              >
-                <div className="text-4xl mb-4">{f.icon}</div>
-                <h3 className="text-xl font-bold text-[#1a2b4a] mb-3">
-                  {f.title}
-                </h3>
-                <p className="text-gray-500 leading-relaxed">{f.description}</p>
-              </div>
+              <FeatureCard key={f.title} f={f} />
             ))}
           </div>
         </div>
