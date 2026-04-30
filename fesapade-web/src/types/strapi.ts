@@ -87,3 +87,10 @@ export interface SiteConfig {
   whatsapp: string;
   direccion: string;
 }
+
+export interface HeroConfig {
+  id: number;
+  Video_URL: string | null;
+  Video_File: StrapiImage[] | null;
+  Priority: 'Video URL ' | 'Video File ' | null;
+}

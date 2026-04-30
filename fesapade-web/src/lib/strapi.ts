@@ -36,6 +36,12 @@ export async function fetchPageHeaderBgs() {
   );
 }
 
+export async function fetchHeroConfig() {
+  return fetchStrapiSafe<import('@/types/strapi').StrapiResponse<import('@/types/strapi').HeroConfig>>(
+    'hero-config?populate=*&status=published'
+  );
+}
+
 export function getStrapiImageUrl(url: string): string {
   if (!url) return '/images/placeholder.jpg';
   if (url.startsWith('http')) return url;
