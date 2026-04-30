@@ -1,0 +1,33 @@
+{
+  "kind": "singleType",
+  "collectionName": "hero_configs",
+  "info": {
+    "singularName": "hero-config",
+    "pluralName": "hero-configs",
+    "displayName": "Hero Config"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Video_URL": {
+      "type": "string"
+    },
+    "Video_File": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "files",
+        "videos"
+      ]
+    },
+    "Priority": {
+      "type": "enumeration",
+      "enum": [
+        "Video URL ",
+        "Video File "
+      ]
+    }
+  }
+}

@@ -502,6 +502,36 @@ export interface ApiGalleryItemGalleryItem extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiHeroConfigHeroConfig extends Struct.SingleTypeSchema {
+  collectionName: 'hero_configs';
+  info: {
+    displayName: 'Hero Config';
+    pluralName: 'hero-configs';
+    singularName: 'hero-config';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::hero-config.hero-config'
+    > &
+      Schema.Attribute.Private;
+    Priority: Schema.Attribute.Enumeration<['Video URL ', 'Video File ']>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Video_File: Schema.Attribute.Media<'files' | 'videos', true>;
+    Video_URL: Schema.Attribute.String;
+  };
+}
+
 export interface ApiNewsItemNewsItem extends Struct.CollectionTypeSchema {
   collectionName: 'news_items';
   info: {
@@ -1150,6 +1180,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::course.course': ApiCourseCourse;
       'api::gallery-item.gallery-item': ApiGalleryItemGalleryItem;
+      'api::hero-config.hero-config': ApiHeroConfigHeroConfig;
       'api::news-item.news-item': ApiNewsItemNewsItem;
       'api::page-header.page-header': ApiPageHeaderPageHeader;
       'api::site-config.site-config': ApiSiteConfigSiteConfig;

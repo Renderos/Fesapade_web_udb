@@ -67,6 +67,15 @@ export interface PageHeader {
   contactoBg?: StrapiImage | null;
 }
 
+export interface HighlightFeature {
+  id: number;
+  titulo: string;
+  descripcion: string;
+  icono: string;
+  orden: number;
+  imagenFondo?: StrapiImage | null;
+}
+
 export interface SiteConfig {
   id: number;
   telefono: string;
@@ -77,4 +86,11 @@ export interface SiteConfig {
   tiktok: string;
   whatsapp: string;
   direccion: string;
+}
+
+export interface HeroConfig {
+  id: number;
+  Video_URL: string | null;
+  Video_File: StrapiImage[] | null;
+  Priority: 'Video URL ' | 'Video File ' | null;
 }

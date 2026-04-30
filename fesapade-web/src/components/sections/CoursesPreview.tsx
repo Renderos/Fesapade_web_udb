@@ -49,7 +49,7 @@ function formatPrice(precio: number, moneda: string): string {
 
 export default async function CoursesPreview() {
   const data = await fetchStrapiSafe<StrapiResponse<Course[]>>(
-    'courses?sort=destacado:desc&pagination[pageSize]=3'
+    'courses?sort=destacado:desc&pagination[pageSize]=3&status=published'
   );
 
   const courses: Pick<Course, 'titulo' | 'descripcion' | 'precio' | 'moneda' | 'nivel' | 'slug'>[] =

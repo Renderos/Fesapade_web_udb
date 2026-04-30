@@ -56,8 +56,8 @@ function formatDate(iso: string): string {
 
 export default async function NoticiasPage() {
   const [newsData, galleryData, pageHeaderData] = await Promise.all([
-    fetchStrapiSafe<StrapiResponse<NewsItem[]>>('news-items?populate=imagen&sort=fecha:desc'),
-    fetchStrapiSafe<StrapiResponse<GalleryItem[]>>('gallery-items?populate=imagen'),
+    fetchStrapiSafe<StrapiResponse<NewsItem[]>>('news-items?populate=imagen&sort=fecha:desc&status=published'),
+    fetchStrapiSafe<StrapiResponse<GalleryItem[]>>('gallery-items?populate=imagen&status=published'),
     fetchPageHeaderBgs(),
   ]);
   const bgUrl = pageHeaderData?.data?.noticiasBg

@@ -65,7 +65,7 @@ function formatDate(iso: string): string {
 
 export async function generateStaticParams() {
   const data = await fetchStrapiSafe<StrapiResponse<NewsItem[]>>(
-    'news-items?fields[0]=slug'
+    'news-items?fields[0]=slug&status=published'
   );
   const strapiSlugs = data?.data?.map((item) => ({ slug: item.slug })) ?? [];
   if (strapiSlugs.length) return strapiSlugs;
@@ -79,7 +79,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const data = await fetchStrapiSafe<StrapiResponse<NewsItem[]>>(
-    `news-items?populate=imagen&filters[slug][$eq]=${slug}`
+    `news-items?populate=imagen&filters[slug][$eq]=${slug}&status=published`
   );
   const article = data?.data?.[0] ?? staticArticles[slug];
   if (!article) return {};
@@ -97,7 +97,7 @@ export default async function NoticiaDetailPage({
   const { slug } = await params;
 
   const data = await fetchStrapiSafe<StrapiResponse<NewsItem[]>>(
-    `news-items?populate=imagen&filters[slug][$eq]=${slug}`
+    `news-items?populate=imagen&filters[slug][$eq]=${slug}&status=published`
   );
 
   const article: (NewsItem & { imagen: NewsItem['imagen'] | null }) | (typeof staticArticles)[string] | undefined =
