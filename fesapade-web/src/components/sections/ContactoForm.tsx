@@ -239,8 +239,7 @@ export default function ContactoForm({ email, telefono }: Props) {
                     className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#c8a84b] transition bg-white"
                   >
                     <option value="">Seleccionar...</option>
-                    <option value="tandem">Salto Tándem</option>
-                    <option value="aff">Curso AFF</option>
+                    <option value="tandem">Curso Básico</option>
                     <option value="funjump">Fun Jump</option>
                     <option value="otro">Otro</option>
                   </select>
